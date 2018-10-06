@@ -1,9 +1,0 @@
-<resources>
-    <string name="app_name">Calculator</string>
-    <string-array name="array_operators">
-        <item>+</item>
-        <item>-</item>
-        <item>*</item>
-        <item>/</item>
-    </string-array>
-</resources>
