@@ -1,0 +1,32 @@
+Valeria Martinez
+CS 262
+11/02/18
+
+ Study the lab starter code and answer the following questions.
+
+a. How many API endpoints does this application support and where are they implemented?
+There is 1 API endpoint this application supports that is implemented on line 122 of the pom.xml
+
+b. PlayerResource.java
+  i.What is the Java-based technology used to access data from a database?
+  JBC 
+  ii.Compare and contrast the following:
+      1. SQL query statements vs. JDBC statement objects
+      JDBC statement objects need to get each data table as a list of rows (Players in this case) and need more work to go
+      into finding data you want vs. SQL query statements which are very simple.
+      2. SQL relations vs. JDBC result sets vs. List<Player>
+      SQL relations return tables of tuples while List<Player> is a list of java objects, and the JDBC
+      result set is a list of tuples with data.
+
+  iii.Under what circumstances would the function getValueStringOrNull() be used?
+  getValueStringOrNull() would be used whenever the user wants to display something that could potentially be NULL.
+  In PlayerResource.java it's  being used to retrieve and display the player's name.
+
+c.Player.java
+    i.What purpose does this Player DAO serve?
+    Provides an object-oriented way to represent and manipulate player "objects"
+    from the traditional (non-object-oriented) Monopoly base.
+    ii. How does it compare with the Player table?
+    In the player table we don't have any methods. Rather, we use queries to get
+    the data. Player DAO serve does have different methods that can be implemented
+    in a object-oriented fashion.
