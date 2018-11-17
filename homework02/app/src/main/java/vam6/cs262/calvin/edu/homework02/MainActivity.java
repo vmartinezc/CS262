@@ -14,10 +14,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.view.View;
 import android.widget.ListView;
-import android.os.Bundle;
-import android.support.v4.content.Loader;
-
-
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -28,15 +24,20 @@ import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity
-        implements LoaderManager.LoaderCallbacks<String>{
+        implements LoaderManager.LoaderCallbacks<String> {
 
-        private EditText input;
-        private Button fetch_button;
-        private ListView player_list;
+    //global variables
+    private EditText input;
+    private Button fetch_button;
+    private ListView player_list;
 
 
-        @Override
-        protected void onCreate (Bundle savedInstanceState){
+    /* onCreate
+       @param: savedInstanceState
+       initializes the main activity
+     */
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         input = (EditText) findViewById(R.id.num_input);
@@ -49,10 +50,14 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-
-        public void searchPlayers (View view){
+    /* searchPlayers
+       @param: view, a View instance
+       this function searches for the players
+       by checking if the query string is not null
+       and if the connection is not null as well.
+     */
+    public void searchPlayers(View view) {
         String queryString = input.getText().toString();
-        //   new FetchPlayer(player).execute(queryString);
         InputMethodManager inputManager = (InputMethodManager)
                 getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
@@ -68,19 +73,20 @@ public class MainActivity extends AppCompatActivity
             getSupportLoaderManager().restartLoader(0, queryBundle, this);
 
         } else {
-            displayToast("Check connection and try again, boi");
+            displayToast("Check connection and try again");
+            displayToast(queryString);
         }
     }
 
 
-        @Override
-        public Loader<String> onCreateLoader ( int i, Bundle bundle){
-            return new FetchPlayer(this, bundle.getString("input"));
+    @Override
+    public Loader<String> onCreateLoader(int i, Bundle bundle) {
+        return new FetchPlayer(this, bundle.getString("input"));
 
     }
 
-        @Override
-        public void onLoadFinished (@NonNull Loader <String> loader, String s){
+    @Override
+    public void onLoadFinished(@NonNull Loader<String> loader, String s) {
         try {
 
             JSONObject jsonObject = new JSONObject(s);
@@ -91,27 +97,27 @@ public class MainActivity extends AppCompatActivity
 
             if (jsonObject.has("items")) {
                 JSONArray itemsArray = jsonObject.getJSONArray("items");
-                //Iterate through the results
-                for (int i = 0; i < itemsArray.length(); i++) {
+
+                for (int i = 0; i < itemsArray.length(); i++) {  //Iterate through the results
                     JSONObject player = itemsArray.getJSONObject(i); //Get the current item
 
 
                     try {
-                        id = player.getString("id");
+                        id = player.getString("id"); //gets user id, stores it in variable id
                     } catch (Exception e) {
-                        id = "no ID";
+                        id = "no ID"; // if there is no id, it returns this message
                     }
 
                     try {
-                        name = player.getString("name");
+                        name = player.getString("name"); //gets name and stores it in variable name
                     } catch (Exception e) {
-                        name = "no name";
+                        name = "no name"; //if there is no name, it returns this message
                     }
 
                     try {
-                        email = player.getString("emailAddress");
+                        email = player.getString("emailAddress"); //gets email address and stores it in variable email
                     } catch (Exception e) {
-                        email = "no email";
+                        email = "no email"; //if there is no email, it returns this message
                     }
                     player_array_list.add(id + ", " + name + ", " + email);
                 }
@@ -119,22 +125,22 @@ public class MainActivity extends AppCompatActivity
                 try {
                     id = jsonObject.getString("id");
                 } catch (Exception e) {
-                    id = "no ID";
+                    id = "no ID"; //if there is no id, it returns this message
                 }
 
                 try {
                     name = jsonObject.getString("name");
                 } catch (Exception e) {
-                    name = "no name";
+                    name = "no name"; //if there is no name, it returns this message
                 }
 
                 try {
                     email = jsonObject.getString("emailAddress");
                 } catch (Exception e) {
-                    email = "no email";
+                    email = "no email"; //if there is no email, it returns this message
                 }
 
-                player_array_list.add(id + ", " + name + ", " + email);
+                player_array_list.add(id + ", " + name + ", " + email); //concatenates user's information
 
             }
 
@@ -151,15 +157,16 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+
     @Override
     public void onLoaderReset(@NonNull Loader<String> loader) {
 
     }
 
 
-    private void displayToast (String s){
+    private void displayToast(String s) { //displays message regarding information
         Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
 
     }
-    }
+}
 

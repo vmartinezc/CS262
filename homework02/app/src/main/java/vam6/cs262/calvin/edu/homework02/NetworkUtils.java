@@ -11,23 +11,26 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 
-//This class is for connecting to the internet
+/* The public class NetworkUtils
+serves the purpose of connecting
+to the Internet
+ */
+
 public class NetworkUtils {
-    private static final String PLAYER_BASE_URL = "https://calvincs262-monopoly.appspot.com/monopoly/v1/players";
+    private static final String PLAYER_BASE_URL = "https://calvincs262-monopoly.appspot.com/monopoly/v1/player";
     private static final String ID_PARAM = "";
     private static final String LOG_TAG = NetworkUtils.class.getSimpleName();
 
-    static String getPlayerInfo(String player_idString){
+    static String getPlayerInfo(String player_idString) {
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
         String playerJSONString = null;
 
-        try{
+        try {
             Uri builtURI;
-            if(player_idString.equals("")) {
+            if (player_idString.equals("")) {
                 builtURI = Uri.parse(PLAYER_BASE_URL.concat("s"));
-                }
-                else{
+            } else {
                 builtURI = Uri.parse(PLAYER_BASE_URL.concat("/").concat(player_idString));
 
             }
@@ -35,8 +38,6 @@ public class NetworkUtils {
             urlConnection = (HttpURLConnection) requestURL.openConnection();
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
-
-
 
 
             InputStream inputStream = urlConnection.getInputStream();
@@ -75,13 +76,12 @@ public class NetworkUtils {
                 }
             }
         }
-            Log.d(LOG_TAG, playerJSONString);
-            return playerJSONString;
-        }
-
-
-
+        Log.d(LOG_TAG, playerJSONString);
+        return playerJSONString;
     }
+
+
+}
 
 
 
