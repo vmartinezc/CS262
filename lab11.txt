@@ -1,0 +1,22 @@
+Valeria Martinez
+LAB 11
+CS 262
+11/16/2018
+
+Homework 1 changes:
+  * used the reformat code function
+  * Deleted unused import statements (dom.Text and widget.Spinner)
+  * defined onCreate and specified parameters
+  * corrected a typo
+  * defined global variables
+
+Homework 2 changes:
+  * deleted unused import statements (.os.Bundle, .content.Loader)
+  * used the reformat code function
+  * deleted unused statements
+  * changed the formatting of the comments to be consistent
+  * defined searchPlayer, Fetchplayer – specified params and function
+
+
+Homework 3 changes:
+  * Just text answers, no code to change or document 
